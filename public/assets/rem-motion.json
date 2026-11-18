@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "assetId": "rem-motion-prototype-001",
+  "character": "Rem",
+  "series": "Re:Zero",
+  "sourceReference": "public/assets/rem-idle.png",
+  "status": "animation-prototype-pending-visual-approval",
+  "rigged": false,
+  "animationType": "frame-by-frame",
+  "sourceSheet": "image-generated three-row, eight-column sheet",
+  "dimensions": {
+    "frameWidth": 192,
+    "frameHeight": 256,
+    "atlasColumns": 8,
+    "atlasRows": 3,
+    "atlasWidth": 1536,
+    "atlasHeight": 768
+  },
+  "texture": "assets/rem-motion-atlas.webp",
+  "animationClips": {
+    "idle": {
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 192,
+          "h": 256,
+          "durationMs": 180
+        },
+        {
+          "x": 192,
+          "y": 0,
+          "w": 192,
+          "h": 256,
+          "durationMs": 180
+        },
+        {
+          "x": 384,
+          "y": 0,
+          "w": 192,
+          "h": 256,
+          "durationMs": 180
+        },
+        {
+          "x": 576,
+          "y": 0,
+          "w": 192,
+          "h": 256,
+          "durationMs": 180
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "w": 192,
+          "h": 256,
+          "durationMs": 180
+        },
+        {
+          "x": 960,
+          "y": 0,
+          "w": 192,
+          "h": 256,
+          "durationMs": 180
+        },
+        {
+          "x": 1152,
+          "y": 0,
+          "w": 192,
+          "h": 256,
+          "durationMs": 180
+        },
+        {
+          "x": 1344,
+          "y": 0,
+          "w": 192,
+          "h": 256,
+          "durationMs": 180
+        }
+      ],
+      "fps": 5.56,
+      "loop": true,
+      "frameCount": 8,
+      "description": "Breathing and blinking"
+    },
+    "walk": {
+      "frames": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 192,
+          "h": 256,
+          "durationMs": 115
+        },
+        {
+          "x": 192,
+          "y": 256,
+          "w": 192,
+          "h": 256,
+          "durationMs": 115
+        },
+        {
+          "x": 384,
+          "y": 256,
+          "w": 192,
+          "h": 256,
+          "durationMs": 115
+        },
+        {
+          "x": 576,
+          "y": 256,
+          "w": 192,
+          "h": 256,
+          "durationMs": 115
+        },
+        {
+          "x": 768,
+          "y": 256,
+          "w": 192,
+          "h": 256,
+          "durationMs": 115
+        },
+        {
+          "x": 960,
+          "y": 256,
+          "w": 192,
+          "h": 256,
+          "durationMs": 115
+        },
+        {
+          "x": 1152,
+          "y": 256,
+          "w": 192,
+          "h": 256,
+          "durationMs": 115
+        },
+        {
+          "x": 1344,
+          "y": 256,
+          "w": 192,
+          "h": 256,
+          "durationMs": 115
+        }
+      ],
+      "fps": 8.7,
+      "loop": true,
+      "frameCount": 8,
+      "description": "Eight-frame step cycle"
+    },
+    "run": {
+      "frames": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 192,
+          "h": 256,
+          "durationMs": 84
+        },
+        {
+          "x": 192,
+          "y": 512,
+          "w": 192,
+          "h": 256,
+          "durationMs": 84
+        },
+        {
+          "x": 384,
+          "y": 512,
+          "w": 192,
+          "h": 256,
+          "durationMs": 84
+        },
+        {
+          "x": 576,
+          "y": 512,
+          "w": 192,
+          "h": 256,
+          "durationMs": 84
+        },
+        {
+          "x": 768,
+          "y": 512,
+          "w": 192,
+          "h": 256,
+          "durationMs": 84
+        },
+        {
+          "x": 960,
+          "y": 512,
+          "w": 192,
+          "h": 256,
+          "durationMs": 84
+        },
+        {
+          "x": 1152,
+          "y": 512,
+          "w": 192,
+          "h": 256,
+          "durationMs": 84
+        },
+        {
+          "x": 1344,
+          "y": 512,
+          "w": 192,
+          "h": 256,
+          "durationMs": 84
+        }
+      ],
+      "fps": 11.9,
+      "loop": true,
+      "frameCount": 8,
+      "description": "Eight-frame sprint cycle"
+    }
+  },
+  "notes": [
+    "Frames are drawn, individually cropped, aligned and exported as transparent images.",
+    "Not a skeletal animation; there is no skinning/IK or bone rig.",
+    "No gameplay engine integration or measured 60 FPS yet."
+  ]
+}

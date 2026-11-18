@@ -15,6 +15,29 @@
       "animationClips": [],
       "rigged": false,
       "status": "pending-approval"
+    },
+    {
+      "id": "rem-motion-prototype-001",
+      "character": "Rem",
+      "series": "Re:Zero",
+      "role": "animation-prototype",
+      "format": "webp",
+      "width": 1536,
+      "height": 768,
+      "frameWidth": 192,
+      "frameHeight": 256,
+      "frameCount": 24,
+      "transparent": true,
+      "source": "assets/rem-motion-atlas.webp",
+      "metadata": "assets/rem-motion.json",
+      "animationClips": [
+        "idle",
+        "walk",
+        "run"
+      ],
+      "animationType": "frame-by-frame",
+      "rigged": false,
+      "status": "pending-visual-approval"
     }
   ]
 }

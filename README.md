@@ -1,23 +1,28 @@
-# Rem · 2.5D Chibi Eight-Direction Animation Preview
+# HTML Live Refresh
 
-The live GitHub Pages preview now presents Rem in a consistent chibi anime style across eight compass directions. The previous user-rejected walking atlas remains in the repository only for version history and is no longer used by the player.
+Fresh, empty project for a future game. All previous character art, sprites, animation atlases, manifests and game-specific viewer code have been removed from the current branch. No game assets or gameplay are included.
 
-## Preview
+## Hosted live preview
 
 https://opdev444.github.io/html-live-refresh/
 
-Use the on-screen 8-way D-pad, or hold arrow keys to move. Two arrow keys combine into a diagonal. Hold Shift while moving to run. Select Idle, Walk, or Run explicitly to preview loops, adjust playback speed, and toggle the transparency checker.
+GitHub Actions builds and deploys every push to `main` using GitHub Pages. The open hosted page checks for a published version every **10 seconds** and reloads when it detects a new build. Deployment and CDN propagation may add extra delay.
 
-## Architecture
+## Local preview (Windows)
 
-- Vite local hot-reload; GitHub Actions deploys pushes to main. Hosted preview checks new builds every **10 seconds**.
-- Chibi art: one eight-angle character turnaround, with matching hairstyle, clothes, decorations and proportions across directions.
-- Runtime: 3 transparent WebP atlases, 8 compass directions × 8 frames for each Idle / Walk / Run clip; requestAnimationFrame loop with delta-time movement and keyboard/pointer controls.
-- Frames: 256×256 normalized pivots, per-clip FPS metadata, 8-way frame coordinates. The animation frames use deterministic mesh deformation derived from one directional source per facing. This is **not** a skeletal rig or final foot-locked locomotion.
-- New art replaces the prior character animation viewer; the original full-resolution Rem PNG is retained as a reference.
+Install Node.js 24 LTS, then run:
 
-## Verification and limitations
+```sh
+npm ci
+npm run dev
+```
 
-`npm ci && npm test && npm run build` runs source/asset verification and the production build. The still artwork and direction switching are ready to inspect. The walk/run gait and cloth motion remain prototypes needing professional rigging, foot planting, and final animation approval; successful automated tests do not prove artistic quality.
+Open http://127.0.0.1:5174/ beside ChatGPT. Vite refreshes automatically when project files change. You can also double-click `start-server.bat` from the repository folder.
 
-Windows local preview: `npm ci && npm run dev` and open http://127.0.0.1:5174/. GitHub Pages preview updates after deployment; it does not directly change your PC files.
+## Verification
+
+Run `npm test` for the empty-project smoke tests and `npm run build` to produce `dist/`.
+
+The GitHub repository is https://github.com/OPDEV444/html-live-refresh. The Windows local server and hosted GitHub Pages site are separate; commits appear on Pages automatically after deployment, but local files need a Git pull.
+
+Old assets may remain accessible in Git commit history; none are present in the latest source tree.

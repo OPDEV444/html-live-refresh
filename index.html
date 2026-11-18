@@ -1,57 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0d1428" />
-  <meta name="description" content="Rem chibi 2.5D eight-direction animation review: idle, walk, run and diagonals." />
-  <title>Rem · Chibi 8-Way Motion Lab</title>
+  <meta name="theme-color" content="#10151d" />
+  <title>HTML Live Preview</title>
 </head>
 <body>
-<main class="app">
-  <header class="topbar">
-    <div class="brand"><span class="brand-mark">✦</span><span class="brand-eyebrow">RE:ZERO · CHARACTER LAB</span><strong>Rem / 8-Direction Motion</strong></div>
-    <span id="status" class="deploy-status" role="status">Loading preview…</span>
-  </header>
-  <section class="page-heading">
-    <div><p class="eyebrow">CHARACTER 001 · REBUILD / MILESTONE 003</p><h1>Chibi motion <em>prototype.</em></h1><p>One consistent Rem character. Eight facing directions. Idle, walk and run — ready for visual review.</p></div>
-    <span class="quality-badge">ART APPROVAL IN PROGRESS</span>
-  </section>
-  <section class="workspace">
-    <div class="stage-card">
-      <div class="stage-toolbar"><span><i class="status-light"></i>LIVE 2.5D PREVIEW</span><span id="frame-info">LOADING ATLAS…</span></div>
-      <div class="stage" id="stage" data-surface="scene">
-        <canvas id="game-canvas" width="960" height="600" aria-label="Rem chibi character animated in eight directions; use arrow keys or the directional pad to change facing and movement."></canvas>
-        <div id="loading" class="loading-message">Loading chibi sprite atlases…</div>
-        <div class="stage-label"><span id="motion-label">IDLE · DOWN</span><span>2.5D ORTHOGRAPHIC REVIEW</span></div>
-      </div>
-      <div class="stage-footer"><span><b>Arrows</b> move · <b>Shift</b> run · Press two arrows for diagonal</span><button id="toggle-surface" type="button" aria-pressed="false">◫ Transparency check</button></div>
-    </div>
-    <aside class="control-panel">
-      <div class="character-heading"><div class="character-initial">R</div><div><p class="eyebrow">CHARACTER SHEET · 01</p><h2>Rem</h2><span>Re:Zero — Starting Life in Another World</span></div></div>
-      <section class="panel-section"><h3><span>01</span> Animation state</h3><div class="clip-controls" role="group" aria-label="Animation state">
-        <button type="button" data-clip="idle" class="is-active" aria-pressed="true">Idle</button>
-        <button type="button" data-clip="walk" aria-pressed="false">Walk</button>
-        <button type="button" data-clip="run" aria-pressed="false">Run</button>
-      </div><div class="playback"><button id="toggle-play" type="button" aria-pressed="true">Ⅱ Pause</button><label for="speed">Speed <strong id="speed-value">1.0×</strong></label><input id="speed" type="range" min="0.5" max="1.75" step="0.05" value="1" /></div></section>
-      <section class="panel-section"><h3><span>02</span> Eight-direction facing</h3><p class="hint">Click a direction to preview it. Hold the button or use keyboard arrows to move. Diagonals are supported.</p><div class="dpad" role="group" aria-label="Movement directions">
-        <button type="button" class="diagonal" data-dir="up-left" aria-label="Up left">↖</button>
-        <button type="button" data-dir="up" aria-label="Up">↑</button>
-        <button type="button" class="diagonal" data-dir="up-right" aria-label="Up right">↗</button>
-        <button type="button" data-dir="left" aria-label="Left">←</button>
-        <div class="dpad-center">✦</div>
-        <button type="button" data-dir="right" aria-label="Right">→</button>
-        <button type="button" class="diagonal" data-dir="down-left" aria-label="Down left">↙</button>
-        <button type="button" data-dir="down" aria-label="Down">↓</button>
-        <button type="button" class="diagonal" data-dir="down-right" aria-label="Down right">↘</button>
-      </div></section>
-      <section class="panel-section details"><h3><span>03</span> Asset verification</h3><div class="stat"><span>Character</span><strong>Rem · Chibi</strong></div><div class="stat"><span>Facing directions</span><strong>8 / 8</strong></div><div class="stat"><span>Animation clips</span><strong>Idle / Walk / Run</strong></div><div class="stat"><span>Animation method</span><strong>Frame sequence · mesh deformation</strong></div><div class="stat"><span>Review status</span><strong class="pending">Motion refinement required</strong></div>
-      <p class="limitations">Eight consistent directional sprites replace the old set. The current locomotion frames are a test pass, not a fully rigged or foot-locked AAA animation. This build tests direction switching, controls and visual identity.</p></section>
-      <div class="downloads"><a id="source-asset" href="#" download="rem-idle.png">Original full-size Rem PNG ↗</a><a id="sheet-asset" href="#" download>Directional animation atlas ↗</a></div>
-    </aside>
-  </section>
-  <footer class="footer"><span>RE:ZERO INSPIRED · PERSONAL CHARACTER ANIMATION STUDY</span><span>GITHUB LIVE REFRESH · 10s</span></footer>
-</main>
-<script type="module" src="/src/main.js"></script>
+  <main class="workspace">
+    <p class="eyebrow">LIVE HTML PREVIEW</p>
+    <h1>Workspace ready</h1>
+    <p class="message">Blank project. No game assets or gameplay added.</p>
+    <p id="status" role="status" aria-live="polite">Connecting preview…</p>
+  </main>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>

@@ -1,28 +1,20 @@
-# HTML Live Refresh
+# Moonlit Shrine Guardian — Design 4 Chibi Turnaround
 
-Fresh, empty project for a future game. All previous character art, sprites, animation atlases, manifests and game-specific viewer code have been removed from the current branch. No game assets or gameplay are included.
+The original female character **Design 4** was chosen by the user. This milestone is a four-direction chibi **visual approval** review, not an animated or playable movement build.
 
-## Hosted live preview
+## Preview
 
-https://opdev444.github.io/html-live-refresh/
+- Hosted: https://opdev444.github.io/html-live-refresh/
+- Local: `npm ci && npm run dev`, then http://127.0.0.1:5174/
+- Arrow keys or on-screen buttons change the facing pose. They **do not** animate locomotion yet.
+- GitHub Pages checks for deployed revisions every **10 seconds**; local Vite hot-reloads saved files.
 
-GitHub Actions builds and deploys every push to `main` using GitHub Pages. The open hosted page checks for a published version every **10 seconds** and reloads when it detects a new build. Deployment and CDN propagation may add extra delay.
+## Assets
 
-## Local preview (Windows)
+`public/assets/` contains four separated transparent directional PNGs, each 400×512 with shared foot alignment / pivot x=200, y=500. A separate staff PNG is 256×512. `manifest.json` is the authoritative source of directional file paths and status. Approved original concept image is provided as a smaller web reference; `turnaround-source.webp` preserves the generated turnaround composition for review.
 
-Install Node.js 24 LTS, then run:
+## Quality / status
 
-```sh
-npm ci
-npm run dev
-```
+Original concept identity: approved. Chibi turnaround: **pending user approval**. No skeletal rig, walking, running, or individual animation frames have been authored. Separate cutout parts, independent legs, skinning, real locomotion loops, and actual in-game movement require further work **after** the chibi look and all facing angles are approved.
 
-Open http://127.0.0.1:5174/ beside ChatGPT. Vite refreshes automatically when project files change. You can also double-click `start-server.bat` from the repository folder.
-
-## Verification
-
-Run `npm test` for the empty-project smoke tests and `npm run build` to produce `dist/`.
-
-The GitHub repository is https://github.com/OPDEV444/html-live-refresh. The Windows local server and hosted GitHub Pages site are separate; commits appear on Pages automatically after deployment, but local files need a Git pull.
-
-Old assets may remain accessible in Git commit history; none are present in the latest source tree.
+`npm test` validates asset dimensions and preview wiring; `npm run build` builds the site. The build tests do not by themselves establish artistic quality or runtime performance.

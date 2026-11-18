@@ -1,75 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#111324"/>
-  <meta name="description" content="Original Design 4 chibi four-way character turnaround approval preview."/>
-  <title>Moonlit Shrine Guardian • Chibi Turnaround</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#10151d" />
+  <title>HTML Live Preview</title>
 </head>
 <body>
- <div class="shell">
-  <header class="topbar">
-    <div class="identity"><span class="sigil" aria-hidden="true">☾</span><div><strong>MOONLIT STUDIO</strong><span>CHARACTER ART LAB · 001</span></div></div>
-    <div id="status" class="status" role="status" aria-live="polite">Connecting live preview…</div>
-  </header>
-  <main>
-   <section class="intro">
-     <div class="eyebrow"><span class="star">✦</span> ORIGINAL CHARACTER / DESIGN 04</div>
-     <h1>Moonlit <em>Guardian</em></h1>
-     <p>The approved character reimagined as a directional chibi sprite. Compare the silhouette, hair, costume and accessories before motion production begins.</p>
-   </section>
-   <div class="workspace">
-     <section class="art-panel" aria-labelledby="art-title">
-       <div class="panel-heading"><span id="art-title">DIRECTIONAL TURNAROUND</span><span class="pill">ART APPROVAL</span></div>
-       <div id="stage" class="stage" data-surface="scene">
-         <div class="ambient-moon" aria-hidden="true"></div><div class="floor-mark" aria-hidden="true"></div>
-         <img id="character" alt="Chibi moon guardian facing the viewer" width="400" height="512"/>
-         <div class="view-label"><span class="view-label__small">CURRENT VIEW</span><span id="current-direction">FRONT · DOWN</span></div>
-       </div>
-       <div class="controls">
-         <div class="controls-top"><span>CHECK FOUR DIRECTIONS</span><button id="surface-toggle" type="button" aria-pressed="false">◫ CHECK TRANSPARENCY</button></div>
-         <div class="facing-grid" role="group" aria-label="Character facing direction">
-            <button type="button" data-facing="up" class="direction"><span>↑</span>BACK</button>
-            <button type="button" data-facing="left" class="direction"><span>←</span>LEFT</button>
-            <button type="button" data-facing="down" class="direction is-active" aria-pressed="true"><span>↓</span>FRONT</button>
-            <button type="button" data-facing="right" class="direction"><span>→</span>RIGHT</button>
-         </div>
-         <p class="hint">Click a direction or use the keyboard arrow keys to inspect the static character views. Movement animation is not included in this milestone.</p>
-       </div>
-     </section>
-     <aside class="side-stack">
-       <section class="reference panel" aria-labelledby="reference-title">
-         <div class="panel-heading" id="reference-title">APPROVED ORIGINAL DESIGN <span>04 / 09</span></div>
-         <div class="reference-figure"><img id="original-reference" alt="Approved original Design 4 with black hair, violet eyes and purple shrine outfit" width="720" height="960" loading="eager"/></div>
-         <div class="reference-bottom">CANONICAL VISUAL REFERENCE <span class="approved">✓ APPROVED</span></div>
-       </section>
-       <section class="panel spec-panel" aria-labelledby="spec-title">
-         <div class="panel-heading" id="spec-title">PRODUCTION STATUS <span>V1.0</span></div>
-         <div class="spec"><span>Character</span><strong>Original female guardian</strong></div>
-         <div class="spec"><span>Facing directions</span><strong>4 / 4 authored</strong></div>
-         <div class="spec"><span>Source sprites</span><strong>400 × 512 RGBA PNG</strong></div>
-         <div class="spec"><span>Attachment</span><strong>Moon staff · separate PNG</strong></div>
-         <div class="spec"><span>Idle / Walk / Run</span><strong class="pending">Not animated yet</strong></div>
-         <div class="spec"><span>Chibi art approval</span><strong class="pending">Pending</strong></div>
-         <p class="spec-note">Only the original character concept is approved. These four chibi views are the next approval gate—not a skeletal rig or finished movement cycle.</p>
-         <a id="source-link" class="download-link" href="#" download="design4-front.png">DOWNLOAD CURRENT PNG <span>↓</span></a>
-       </section>
-     </aside>
-   </div>
-   <section class="all-views" aria-label="All four directional design views">
-      <div class="all-views__head"><span>IDENTITY CONSISTENCY · ALL FOUR VIEWS</span><span>SAME CANVAS · SAME FOOT ANCHOR</span></div>
-      <div class="view-cards">
-       <button class="view-card" type="button" data-view-card="down"><img id="view-down" alt="Chibi front-facing artwork" width="400" height="512"/><span>01 · FRONT</span></button>
-       <button class="view-card" type="button" data-view-card="left"><img id="view-left" alt="Chibi facing left" width="400" height="512"/><span>02 · LEFT</span></button>
-       <button class="view-card" type="button" data-view-card="right"><img id="view-right" alt="Chibi facing right" width="400" height="512"/><span>03 · RIGHT</span></button>
-       <button class="view-card" type="button" data-view-card="up"><img id="view-up" alt="Back-facing chibi artwork" width="400" height="512"/><span>04 · BACK</span></button>
-      </div>
-   </section>
-   <section class="prop-panel"><div><span class="eyebrow">DETACHABLE CHARACTER PROP</span><h2>Crescent Moon Staff</h2><p>Kept separate for the later arm rig, directional occlusion and movement animation.</p></div><img id="staff-image" width="256" height="512" alt="Separate crescent moon staff with violet orb and tassels"/></section>
+  <main class="workspace">
+    <p class="eyebrow">LIVE HTML PREVIEW</p>
+    <h1>Ready for a new game</h1>
+    <p class="message">Blank project. No characters, gameplay, environments, or game assets.</p>
+    <p id="status" role="status" aria-live="polite">Connecting preview…</p>
   </main>
-  <footer><span>DESIGN 4 · CHIBI TURNAROUND / AWAITING APPROVAL</span><span>GITHUB-CONNECTED LIVE PREVIEW</span></footer>
- </div>
- <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>

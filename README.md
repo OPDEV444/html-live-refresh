@@ -22,3 +22,8 @@ Repository Settings → Pages → Source must be GitHub Actions. The workflow bu
 
 Edit `index.html`, `src/main.js`, and `src/style.css` to begin development. Future static files can go in `public/`.
 
+
+## Verification
+
+Verified on 2026-11-18: clean npm install, production build with the repository base path, local HTTP 200, HTML edit appearing automatically in the open browser, and successful GitHub Actions build and Pages deployment. Local port is 5174 to avoid another running application.
+

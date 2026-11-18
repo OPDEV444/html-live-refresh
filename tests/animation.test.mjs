@@ -1,45 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-
-const read = path => readFileSync(new URL(`../${path}`, import.meta.url));
-const metadata = JSON.parse(read('public/assets/rem-motion.json').toString('utf8'));
-
-test('motion atlas is a genuine WebP image', () => {
-  const atlas = read('public/assets/rem-motion-atlas.webp');
-  assert.equal(atlas.toString('ascii',0,4),'RIFF');
-  assert.equal(atlas.toString('ascii',8,12),'WEBP');
-  assert.ok(atlas.byteLength > 30000,'nontrivial frame atlas must be present');
+import {readFileSync,statSync} from 'node:fs';
+const read=p=>readFileSync(new URL(`../${p}`,import.meta.url),'utf8');
+const manifest=JSON.parse(read('public/assets/rem-chibi-8way.json'));
+test('eight directions including diagonals are present',()=>{
+ assert.deepEqual(manifest.directionOrder,['down','down-right','right','up-right','up','up-left','left','down-left']);
 });
-
-test('idle, walk and run each have 8 independent positive-duration frames', () => {
-  assert.equal(metadata.rigged,false);
-  assert.equal(metadata.animationType,'frame-by-frame');
-  assert.equal(metadata.dimensions.atlasWidth,1536);
-  assert.equal(metadata.dimensions.atlasHeight,768);
-  const seen = new Set();
-  for (const name of ['idle','walk','run']) {
-    const clip=metadata.animationClips[name];
-    assert.equal(clip.frameCount,8,`${name} must have 8 frames`);
-    assert.equal(clip.frames.length,8);
-    for (const f of clip.frames) {
-      assert.ok(Number.isInteger(f.durationMs) && f.durationMs > 0);
-      assert.ok(f.x >= 0 && f.y >= 0);
-      assert.ok(f.x+f.w <= 1536 && f.y+f.h <= 768);
-      const key = `${f.x},${f.y},${f.w},${f.h}`;
-      assert.equal(seen.has(key),false,'frame rectangle reused across clips');
-      seen.add(key);
-    }
-  }
-  assert.equal(seen.size,24);
+test('idle walk run reference real, nonempty atlases and frame descriptions',()=>{
+ for(const clip of ['idle','walk','run']){
+  const spec=manifest.atlases[clip];
+  assert.equal(spec.rows,8);assert.equal(spec.columns,8);
+  assert.equal(spec.pixelWidth,2048);assert.equal(spec.pixelHeight,2048);
+  assert.equal(manifest.clips[clip].frameCount,8);
+  assert.ok(statSync(new URL('../public/'+spec.file,import.meta.url)).size>100_000);
+ }
 });
-
-test('preview has state controls and 10-second hosted refresh', () => {
-  const html=read('index.html').toString('utf8');
-  const js=read('src/main.js').toString('utf8');
-  for(const clip of ['idle','walk','run']) assert.match(html,new RegExp(`data-clip="${clip}"`));
-  assert.match(html,/<canvas id="motion-canvas"/);
-  assert.match(js,/setInterval\(checkForUpdate,10000\)/);
-  assert.match(js,/sheet\.decode\(\)/);
-  assert.match(js,/ctx\.drawImage\(/);
+test('eight-way player has keyboard and pointer controls, delta-time playback and hosted reload',()=>{
+ const js=read('src/main.js');
+ for(const s of ['requestAnimationFrame','pointerdown','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Math.hypot','clip.fps','version.json','10000'])assert.ok(js.includes(s),s);
 });

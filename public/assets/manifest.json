@@ -37,7 +37,32 @@
       ],
       "animationType": "frame-by-frame",
       "rigged": false,
-      "status": "pending-visual-approval"
+      "status": "superseded-not-approved"
+    },
+    {
+      "id": "rem-chibi-8way-prototype-001",
+      "character": "Rem",
+      "series": "Re:Zero",
+      "role": "eight-direction-chibi-motion-preview",
+      "format": "webp",
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "directions": 8,
+      "clips": [
+        "idle",
+        "walk",
+        "run"
+      ],
+      "framesPerClip": 8,
+      "animationType": "mesh-deformed-frame-sequence",
+      "rigged": false,
+      "atlases": [
+        "assets/rem-chibi-idle-8way.webp",
+        "assets/rem-chibi-walk-8way.webp",
+        "assets/rem-chibi-run-8way.webp"
+      ],
+      "metadata": "assets/rem-chibi-8way.json",
+      "status": "directional-prototype-motion-not-approved"
     }
   ]
 }

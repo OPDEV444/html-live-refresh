@@ -1,31 +1,23 @@
-# HTML live refresh — Rem animation preview
+# Rem · 2.5D Chibi Eight-Direction Animation Preview
 
-A Vite-powered live HTML viewer for a future game. The current visual milestone contains **only Rem** (Re:Zero) and a prototype idle/walk/run animation atlas. No game environment, collision/gameplay or other character assets are present.
+The live GitHub Pages preview now presents Rem in a consistent chibi anime style across eight compass directions. The previous user-rejected walking atlas remains in the repository only for version history and is no longer used by the player.
 
-## Hosted preview
+## Preview
 
 https://opdev444.github.io/html-live-refresh/
 
-Push a milestone to `main` to run GitHub Actions (`npm ci`, `npm test`, `npm run build`) and deploy to GitHub Pages. Already-open hosted tabs poll `version.json` every **10 seconds** and refresh when the published build ID changes. Deployment and CDN propagation may add delay. Chat messages alone do not modify project files.
+Use the on-screen 8-way D-pad, or hold arrow keys to move. Two arrow keys combine into a diagonal. Hold Shift while moving to run. Select Idle, Walk, or Run explicitly to preview loops, adjust playback speed, and toggle the transparency checker.
 
-## Local preview
+## Architecture
 
-Node.js 24 LTS recommended. Run `npm ci` and `npm run dev` or double-click `start-server.bat` on Windows. Open http://127.0.0.1:5174/ beside ChatGPT. Vite updates HTML/CSS/JavaScript on save. `git pull` is needed to retrieve new GitHub commits into an existing local checkout; the local Vite server does not pull from GitHub automatically.
+- Vite local hot-reload; GitHub Actions deploys pushes to main. Hosted preview checks new builds every **10 seconds**.
+- Chibi art: one eight-angle character turnaround, with matching hairstyle, clothes, decorations and proportions across directions.
+- Runtime: 3 transparent WebP atlases, 8 compass directions × 8 frames for each Idle / Walk / Run clip; requestAnimationFrame loop with delta-time movement and keyboard/pointer controls.
+- Frames: 256×256 normalized pivots, per-clip FPS metadata, 8-way frame coordinates. The animation frames use deterministic mesh deformation derived from one directional source per facing. This is **not** a skeletal rig or final foot-locked locomotion.
+- New art replaces the prior character animation viewer; the original full-resolution Rem PNG is retained as a reference.
 
-## Animation controls
+## Verification and limitations
 
-Select **Idle**, **Walk**, or **Run**; pause/play, adjust playback speed, toggle transparency checkerboard. Use keyboard `1`, `2`, `3` to switch clips and `Space` to pause/play outside inputs. Rem's canonical original illustration is available separately via the Original PNG link.
+`npm ci && npm test && npm run build` runs source/asset verification and the production build. The still artwork and direction switching are ready to inspect. The walk/run gait and cloth motion remain prototypes needing professional rigging, foot planting, and final animation approval; successful automated tests do not prove artistic quality.
 
-The motion atlas in `public/assets/rem-motion-atlas.webp` contains 24 frame drawings, packed 8 columns by 3 rows at 192 × 256 px per frame. Its timings and coordinates live in `public/assets/rem-motion.json`. See `public/assets/README.md` for exact asset specifications and limitations. The frames are a **visual approval prototype**: frame-by-frame, not a 2D or 3D bone rig, not gameplay-integrated, and not yet approved for production.
-
-## Checks and build
-
-`npm test` validates the atlas signature, 24 unique frame records, and preview controls. `npm run build` generates `dist`. `npm run preview` serves production output at http://127.0.0.1:4173/. Vite's `BASE_PATH` environment variable sets the GitHub Pages project-root path; GitHub Actions supplies it.
-
-## Publishing
-
-Repository **Settings → Pages → Source = GitHub Actions**. The workflow checks pull requests and deploys pushes to `main`. The GitHub Pages URL is for a web preview; packaging this into a Windows EXE needs a separate, verified desktop build.
-
-## Provenance
-
-The animation frames were independently generated from the original illustrated Rem reference; they are not skinned/re-rigged transformations of the original source PNG. An independent appearance and movement approval step is required before these frames become canonical.
+Windows local preview: `npm ci && npm run dev` and open http://127.0.0.1:5174/. GitHub Pages preview updates after deployment; it does not directly change your PC files.

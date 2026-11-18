@@ -1,81 +1,57 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0c1628" />
-  <meta name="description" content="Re:Zero-inspired Rem frame animation approval test: idle, walk, and run." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <title>Rem · Motion Atelier</title>
+  <meta name="theme-color" content="#0d1428" />
+  <meta name="description" content="Rem chibi 2.5D eight-direction animation review: idle, walk, run and diagonals." />
+  <title>Rem · Chibi 8-Way Motion Lab</title>
 </head>
 <body>
-  <main class="workspace" aria-labelledby="page-title">
-    <header class="topbar">
-      <div class="identity">
-        <span class="crest" aria-hidden="true">❖</span>
-        <div class="identity__copy"><span class="identity__sup">RE:ZERO · ASSET STUDIO</span><strong>Motion Atelier</strong></div>
+<main class="app">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">✦</span><span class="brand-eyebrow">RE:ZERO · CHARACTER LAB</span><strong>Rem / 8-Direction Motion</strong></div>
+    <span id="status" class="deploy-status" role="status">Loading preview…</span>
+  </header>
+  <section class="page-heading">
+    <div><p class="eyebrow">CHARACTER 001 · REBUILD / MILESTONE 003</p><h1>Chibi motion <em>prototype.</em></h1><p>One consistent Rem character. Eight facing directions. Idle, walk and run — ready for visual review.</p></div>
+    <span class="quality-badge">ART APPROVAL IN PROGRESS</span>
+  </section>
+  <section class="workspace">
+    <div class="stage-card">
+      <div class="stage-toolbar"><span><i class="status-light"></i>LIVE 2.5D PREVIEW</span><span id="frame-info">LOADING ATLAS…</span></div>
+      <div class="stage" id="stage" data-surface="scene">
+        <canvas id="game-canvas" width="960" height="600" aria-label="Rem chibi character animated in eight directions; use arrow keys or the directional pad to change facing and movement."></canvas>
+        <div id="loading" class="loading-message">Loading chibi sprite atlases…</div>
+        <div class="stage-label"><span id="motion-label">IDLE · DOWN</span><span>2.5D ORTHOGRAPHIC REVIEW</span></div>
       </div>
-      <div class="build-status" id="status" role="status" aria-live="polite">Connecting preview…</div>
-    </header>
-
-    <div class="hero-label"><span class="hero-label__diamond">◆</span> CHARACTER MOTION TEST <span class="hero-label__line"></span> MILESTONE 002</div>
-
-    <section class="preview-layout">
-      <div class="stage-card" aria-label="Rem animation test stage">
-        <div class="panel-heading"><div><span class="mini-crown" aria-hidden="true">✧</span> ANIMATION VIEWER <span class="panel-heading__slash">/</span> REM · 001</div><span class="panel-heading__quality">FRAME-BASED</span></div>
-        <div class="stage" id="stage" data-surface="scene">
-          <div class="stage__halo" aria-hidden="true"></div>
-          <div class="stage__ornament stage__ornament--left" aria-hidden="true">✦</div>
-          <div class="stage__ornament stage__ornament--right" aria-hidden="true">✦</div>
-          <div class="stage__ground" aria-hidden="true"></div>
-          <canvas id="motion-canvas" width="384" height="512" role="img" aria-label="Rem animation showing her current idle, walk, or run pose"></canvas>
-          <div class="stage__overlay" id="loading-message">Loading animation atlas…</div>
-          <div class="stage__stage-label">THE BLUE-HAIRED MAID <span aria-hidden="true">✧</span> RE:ZERO</div>
-        </div>
-        <div class="stage-footer">
-          <div class="stage-footer__left"><span class="signal" aria-hidden="true"></span><strong id="clip-name">IDLE</strong><span class="separator">/</span><span id="frame-counter">FRAME 01 / 08</span></div>
-          <button class="surface-toggle" id="surface-toggle" type="button" aria-pressed="false">Transparency check</button>
-        </div>
-        <div class="playback-controls" aria-label="Animation playback controls">
-          <div class="clip-tabs" role="group" aria-label="Select animation">
-            <button class="clip-tab is-active" type="button" data-clip="idle" aria-pressed="true"><span>✧</span> Idle <small>01</small></button>
-            <button class="clip-tab" type="button" data-clip="walk" aria-pressed="false"><span>♧</span> Walk <small>02</small></button>
-            <button class="clip-tab" type="button" data-clip="run" aria-pressed="false"><span>✦</span> Run <small>03</small></button>
-          </div>
-          <div class="transport">
-            <button id="toggle-play" class="transport__button" type="button" aria-label="Pause animation">Ⅱ <span>Pause</span></button>
-            <label for="speed" class="transport__speed">Speed <output for="speed" id="speed-value">1.0×</output></label>
-            <input id="speed" class="transport__slider" type="range" min="0.5" max="1.5" step="0.25" value="1" />
-          </div>
-        </div>
-      </div>
-
-      <aside class="character-panel">
-        <div class="panel-kicker"><span class="panel-kicker__star">✶</span> CHARACTER PROFILE <span>01 / 01</span></div>
-        <div class="character-intro"><p class="character-intro__epithet">The gentle demon maid</p><h1 id="page-title">Rem<span class="character-intro__accent">.</span></h1><div class="character-intro__divider">❖</div><p class="character-intro__series">Re:Zero − Starting Life in Another World</p></div>
-        <p class="description">Try three hand-drawn frame sequences in the live preview. Inspect the character silhouette, movement, fabric motion, and loop continuity before approval.</p>
-        <div class="section-heading"><span>Motion library</span><span class="section-heading__minor">03 CLIPS / 24 FRAMES</span></div>
-        <div class="motion-list" id="motion-list">
-          <button class="motion-row is-active" type="button" data-clip="idle" aria-pressed="true"><span class="motion-row__number">01</span><span class="motion-row__name">Idle <small>Breathing &amp; blinking</small></span><span class="motion-row__count">8 FR</span></button>
-          <button class="motion-row" type="button" data-clip="walk" aria-pressed="false"><span class="motion-row__number">02</span><span class="motion-row__name">Walk <small>Stepping &amp; cloth motion</small></span><span class="motion-row__count">8 FR</span></button>
-          <button class="motion-row" type="button" data-clip="run" aria-pressed="false"><span class="motion-row__number">03</span><span class="motion-row__name">Run <small>Forward-lean sprint</small></span><span class="motion-row__count">8 FR</span></button>
-        </div>
-        <div class="section-heading section-heading--spaced"><span>Asset specification</span><span class="section-heading__minor">PROTOTYPE</span></div>
-        <dl class="specs">
-          <div><dt>Animation</dt><dd id="animation-status">24 individual frames · 3 clips</dd></div>
-          <div><dt>Format</dt><dd>Transparent WebP atlas + JSON</dd></div>
-          <div><dt>Frame size</dt><dd>192 × 256 px</dd></div>
-          <div><dt>Rigging</dt><dd>Not rigged · frame-by-frame</dd></div>
-          <div><dt>Approval</dt><dd class="awaiting">Visual review pending</dd></div>
-        </dl>
-        <div class="actions"><a class="asset-link" id="original-asset" download="rem-idle.png" href="#">Original character PNG <span aria-hidden="true">↗</span></a><a class="asset-link asset-link--secondary" id="atlas-asset" download="rem-motion-atlas.webp" href="#">Animation atlas <span aria-hidden="true">↗</span></a></div>
-        <p class="footnote">Prototype from illustrated animation frames; it is not a bone-driven rig. This is an asset review viewer, not yet an integrated game or an EXE build. Shortcuts: 1 / 2 / 3 to switch states, Space to pause.</p>
-      </aside>
-    </section>
-    <footer class="page-footer"><span>✧ RE:ZERO-INSPIRED FAN ASSET PREVIEW</span><span>GITHUB-CONNECTED · MILESTONE 002</span></footer>
-  </main>
-  <script type="module" src="/src/main.js"></script>
+      <div class="stage-footer"><span><b>Arrows</b> move · <b>Shift</b> run · Press two arrows for diagonal</span><button id="toggle-surface" type="button" aria-pressed="false">◫ Transparency check</button></div>
+    </div>
+    <aside class="control-panel">
+      <div class="character-heading"><div class="character-initial">R</div><div><p class="eyebrow">CHARACTER SHEET · 01</p><h2>Rem</h2><span>Re:Zero — Starting Life in Another World</span></div></div>
+      <section class="panel-section"><h3><span>01</span> Animation state</h3><div class="clip-controls" role="group" aria-label="Animation state">
+        <button type="button" data-clip="idle" class="is-active" aria-pressed="true">Idle</button>
+        <button type="button" data-clip="walk" aria-pressed="false">Walk</button>
+        <button type="button" data-clip="run" aria-pressed="false">Run</button>
+      </div><div class="playback"><button id="toggle-play" type="button" aria-pressed="true">Ⅱ Pause</button><label for="speed">Speed <strong id="speed-value">1.0×</strong></label><input id="speed" type="range" min="0.5" max="1.75" step="0.05" value="1" /></div></section>
+      <section class="panel-section"><h3><span>02</span> Eight-direction facing</h3><p class="hint">Click a direction to preview it. Hold the button or use keyboard arrows to move. Diagonals are supported.</p><div class="dpad" role="group" aria-label="Movement directions">
+        <button type="button" class="diagonal" data-dir="up-left" aria-label="Up left">↖</button>
+        <button type="button" data-dir="up" aria-label="Up">↑</button>
+        <button type="button" class="diagonal" data-dir="up-right" aria-label="Up right">↗</button>
+        <button type="button" data-dir="left" aria-label="Left">←</button>
+        <div class="dpad-center">✦</div>
+        <button type="button" data-dir="right" aria-label="Right">→</button>
+        <button type="button" class="diagonal" data-dir="down-left" aria-label="Down left">↙</button>
+        <button type="button" data-dir="down" aria-label="Down">↓</button>
+        <button type="button" class="diagonal" data-dir="down-right" aria-label="Down right">↘</button>
+      </div></section>
+      <section class="panel-section details"><h3><span>03</span> Asset verification</h3><div class="stat"><span>Character</span><strong>Rem · Chibi</strong></div><div class="stat"><span>Facing directions</span><strong>8 / 8</strong></div><div class="stat"><span>Animation clips</span><strong>Idle / Walk / Run</strong></div><div class="stat"><span>Animation method</span><strong>Frame sequence · mesh deformation</strong></div><div class="stat"><span>Review status</span><strong class="pending">Motion refinement required</strong></div>
+      <p class="limitations">Eight consistent directional sprites replace the old set. The current locomotion frames are a test pass, not a fully rigged or foot-locked AAA animation. This build tests direction switching, controls and visual identity.</p></section>
+      <div class="downloads"><a id="source-asset" href="#" download="rem-idle.png">Original full-size Rem PNG ↗</a><a id="sheet-asset" href="#" download>Directional animation atlas ↗</a></div>
+    </aside>
+  </section>
+  <footer class="footer"><span>RE:ZERO INSPIRED · PERSONAL CHARACTER ANIMATION STUDY</span><span>GITHUB LIVE REFRESH · 10s</span></footer>
+</main>
+<script type="module" src="/src/main.js"></script>
 </body>
 </html>

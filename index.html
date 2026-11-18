@@ -3,16 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#10151d" />
-  <title>HTML Live Preview</title>
+  <meta name="theme-color" content="#111b23" />
+  <meta name="description" content="Original 2D top-down RPG movement test with four-direction animated sprites." />
+  <title>Verdant Vale · First Steps</title>
 </head>
 <body>
-  <main class="workspace">
-    <p class="eyebrow">LIVE HTML PREVIEW</p>
-    <h1>Ready for a new game</h1>
-    <p class="message">Blank project. No characters, gameplay, environments, or game assets.</p>
-    <p id="status" role="status" aria-live="polite">Connecting preview…</p>
-  </main>
+  <div class="app">
+    <header class="header">
+      <div class="brand"><div class="brand-mark">✧</div><div><div class="eyebrow">2D GAME · MOVEMENT TEST 001</div><h1>Verdant Vale <span> / First Steps</span></h1></div></div>
+      <span class="live-indicator"><span class="live-dot"></span><span id="deploy-status">Initializing preview...</span></span>
+    </header>
+    <main class="layout">
+      <section class="game-panel" aria-label="Playable two-dimensional world">
+        <div class="panel-top"><span><span class="green-dot"></span> PLAYABLE WORLD</span><span class="subtle">Original sprites · 4-direction movement</span></div>
+        <div class="canvas-shell" id="canvas-shell">
+          <canvas id="game" width="960" height="600" tabindex="0" aria-label="Liora in a forest clearing. Press W A S D or arrow keys to move."></canvas>
+          <div class="scene-corner"><span class="scene-icon">✦</span><div><strong>Willowfield Crossing</strong><small>Woodland clearing · 2D</small></div></div>
+          <div class="frame-status" id="motion-status">Loading character sprites…</div>
+          <div class="error-banner" id="error-banner" hidden></div>
+        </div>
+        <div class="game-foot"><div class="controls"><span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span><span class="controls-label">to move · diagonal movement supported</span></div><div class="coord" id="coord">X 000 · Y 000</div></div>
+      </section>
+      <aside class="sidebar" aria-label="Character and asset information">
+        <div class="character-card">
+          <div class="tag">ORIGINAL CHARACTER 001</div>
+          <div class="portrait"><img id="portrait" src="" alt="Liora, an original copper-haired woodland wayfinder, facing front"/></div>
+          <h2>Liora</h2><p>Woodland Wayfinder</p>
+          <div class="character-divider"></div>
+          <div class="stat"><span>Movement</span><strong>W A S D</strong></div>
+          <div class="stat"><span>Facing</span><strong id="facing-label">Down</strong></div>
+          <div class="stat"><span>Animation</span><strong id="animation-label">Idle</strong></div>
+          <div class="stat"><span>Sprite frames</span><strong>48 actual frames</strong></div>
+        </div>
+        <div class="aside-note"><span class="small-heading">MILESTONE 001</span><p>One original character, a traversable forest map, four-direction sprite animation, collisions, and a following camera.</p><p class="note-muted">No enemies, quests, menus or other gameplay systems have been added.</p></div>
+      </aside>
+    </main>
+    <footer class="footer"><span>REAL SPRITE ATLASES · ORIGINAL ASSETS</span><span>GITHUB-CONNECTED LIVE PREVIEW</span></footer>
+  </div>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

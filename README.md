@@ -1,29 +1,38 @@
-# HTML Live Refresh
+# Verdant Vale — First Steps (2D)
 
-Empty project scaffold for a new game. All previous game assets, character designs and game-specific preview components have been removed from the current branch. No replacement game has been started.
+A deliberately small **playable top-down 2D movement test**. Contains an original female character (Liora), transparent 4-way idle/walk sprite atlases, layered grass/dirt tiles, trees, rocks, bushes and flowers, collision, camera follow, and WASD controls. No enemies, quests, or other systems yet.
 
-## Hosted preview
+## Run locally
 
-https://opdev444.github.io/html-live-refresh/
-
-Every push to `main` triggers a GitHub Actions build and GitHub Pages deployment. An open hosted preview checks for new builds every **10 seconds**, and refreshes automatically when a new published revision is available. Deployment and caching may add additional delay.
-
-## Local Vite preview
-
-Install Node.js 24 LTS. From a checkout of this repository:
+Install Node.js >=22.12, then:
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:5174/. Alternatively run `start-server.bat` on Windows. Files saved locally trigger Vite hot reload. Pull new commits to synchronize local files with the GitHub repository.
+Open http://127.0.0.1:5174/. Use **W A S D** (also arrow keys) to move. Diagonals normalize to the same speed; releasing keys returns Liora to idle. Camera tracks the character and stops at world bounds.
 
-## Build and smoke tests
+## Hosted GitHub Preview
 
-```sh
-npm test
-npm run build
-```
+https://opdev444.github.io/html-live-refresh/
 
-The old game art remains in Git history, but no old assets are tracked in the current branch.
+Pushes to `main` trigger the existing GitHub Actions test/build/Pages deployment. The hosted preview checks for new deployments every 10 seconds.
+
+## Assets and source
+
+- `public/assets/liora-idle.png`: 4x4 atlas (down, left, right, up; four idle frames)
+- `public/assets/liora-walk.png`: 8x4 atlas (eight walk frames per facing)
+- `public/assets/liora-*-source.svg`: editable animation source example for each facing
+- `public/assets/grass-*.png`, `path-*.png`: repeating world tiles
+- `public/assets/oak-tree.png`, `bush.png`, `stone.png`, `wildflowers.png`: separate scenery sprites
+- `public/assets/manifest.json`: asset dimensions, pivots, frame rates and world parameters
+- `generate_assets.py`: editable procedural source for runtime assets
+- `src/world.js`: deterministic map and obstacle collision
+- `src/main.js`: frame-rate-independent movement, animation and camera
+
+Use `python generate_assets.py` to regenerate assets (requires Pillow and CairoSVG).
+
+## Verification
+
+Run `npm test` and `npm run build`. Browser tests should check scene loading, all WASD directions, diagonal speed normalization, obstacle collision and responsive display. These are genuine hand-authored 2D game assets, not a generated mock gameplay screenshot. The game is not a finished RPG.

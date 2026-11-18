@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "character": {
+    "id": "liora-001",
+    "name": "Liora",
+    "description": "Original woodland wayfinder with copper bob, teal cloak, amber head ornament, cream tunic and boots",
+    "directions": [
+      "down",
+      "left",
+      "right",
+      "up"
+    ],
+    "frame": {
+      "width": 96,
+      "height": 112,
+      "pivot": [
+        48,
+        92
+      ]
+    },
+    "clips": {
+      "idle": {
+        "file": "liora-idle.png",
+        "frames": 4,
+        "fps": 4
+      },
+      "walk": {
+        "file": "liora-walk.png",
+        "frames": 8,
+        "fps": 10
+      }
+    },
+    "animationType": "independent vector-layer authored frames"
+  },
+  "world": {
+    "tileSize": 64,
+    "width": 38,
+    "height": 30,
+    "seed": 1108,
+    "ground": [
+      "grass-0.png",
+      "grass-1.png",
+      "grass-2.png",
+      "grass-3.png"
+    ],
+    "path": [
+      "path-0.png",
+      "path-1.png",
+      "path-2.png",
+      "path-3.png"
+    ],
+    "props": [
+      "oak-tree.png",
+      "bush.png",
+      "wildflowers.png",
+      "stone.png"
+    ]
+  }
+}

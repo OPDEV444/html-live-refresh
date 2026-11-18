@@ -4,7 +4,7 @@ A blank HTML project for a future game. No game assets are included.
 
 ## Local preview
 
-Use Node.js 24 LTS. Run `npm ci`, then `npm run dev`, and open http://127.0.0.1:5173. Saving HTML, CSS or JavaScript updates the preview automatically.
+Use Node.js 24 LTS. Run `npm ci`, then `npm run dev`, and open http://127.0.0.1:5174. Saving HTML, CSS or JavaScript updates the preview automatically.
 
 ## Hosted preview
 
@@ -21,3 +21,4 @@ Push a milestone to `main` to build and deploy through GitHub Actions. The open 
 Repository Settings → Pages → Source must be GitHub Actions. The workflow builds pull requests without publishing and deploys pushes to main. It uses the repository name as the URL base path. For a custom domain or user-root site, change BASE_PATH to `/` in the workflow.
 
 Edit `index.html`, `src/main.js`, and `src/style.css` to begin development. Future static files can go in `public/`.
+

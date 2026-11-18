@@ -23,7 +23,12 @@ export function makeWorld(seed=1108) {
   const ground=[];
   for(let y=0;y<MAP_H;y++) {
     const row=[];
-    for(let x=0;x<MAP_W;x++) row.push({path:isPath(x,y),variant:Math.floor(rng()*4)});
+    for(let x=0;x<MAP_W;x++) {
+      const path=isPath(x,y);
+      const variantRoll=rng();
+      const variant=path?Math.floor(variantRoll*4):variantRoll<.64?0:variantRoll<.91?1:variantRoll<.955?2:3;
+      row.push({path,variant});
+    }
     ground.push(row);
   }
   const props=[];

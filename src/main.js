@@ -15,13 +15,14 @@ const keys=new Set();
 let lastPressed='s';
 const player={x:18.5*TILE,y:14.6*TILE,facing:'down',clip:'idle',frame:0,elapsed:0};
 const camera={x:0,y:0};
-const frameSpec={width:96,height:112,pivotX:48,pivotY:92};
+let frameSpec={width:256,height:320,pivotX:128,pivotY:296};
 const facingRow={down:0,left:1,right:2,up:3};
 const IMG={};
 let ready=false,manifest=null,clock=0;
 const sheetNames={idle:'liora-idle.png',walk:'liora-walk.png'};
 const terrain={grass:['grass-0.png','grass-1.png','grass-2.png','grass-3.png'],path:['path-0.png','path-1.png','path-2.png','path-3.png']};
 const props={tree:'oak-tree.png',bush:'bush.png',flower:'wildflowers.png',stone:'stone.png'};
+const edgeNames={top:'path-edge-top.png',bottom:'path-edge-bottom.png',left:'path-edge-left.png',right:'path-edge-right.png'};
 
 function loadImage(name){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(new Error(`Failed to load ${name}`));im.src=`${base}assets/${name}`;});}
 function resizeCanvas(){const rect=canvas.getBoundingClientRect();const dpr=Math.min(2,window.devicePixelRatio||1);canvas.width=Math.max(320,Math.round(rect.width*dpr));canvas.height=Math.max(220,Math.round(rect.height*dpr));}
@@ -44,17 +45,16 @@ function update(dt){const [dx,dy]=inputVector();const moving=dx!==0||dy!==0;cons
 }
 function render(){const vpW=canvas.width,vpH=canvas.height;ctx.fillStyle='#579967';ctx.fillRect(0,0,vpW,vpH);if(!ready)return;
   const scale=vpW/960;const t=TILE*scale;const startX=Math.max(0,Math.floor(camera.x/t)-1),endX=Math.min(MAP_W,Math.ceil((camera.x+vpW)/t)+2);const startY=Math.max(0,Math.floor(camera.y/t)-1),endY=Math.min(MAP_H,Math.ceil((camera.y+vpH)/t)+2);
-  ctx.imageSmoothingEnabled=false;
+  ctx.imageSmoothingEnabled=true;
   for(let y=startY;y<endY;y++)for(let x=startX;x<endX;x++){const ground=world.ground[y][x];const im=IMG[(ground.path?'path-':'grass-')+ground.variant+'.png'];ctx.drawImage(im,Math.round(x*t-camera.x),Math.round(y*t-camera.y),Math.ceil(t)+1,Math.ceil(t)+1);}
-  // Natural path edges are softened with grass strands at boundaries (no canvas texture substitutions).
+  // Source-derived transparent grass transitions conceal hard tile boundaries.
   for(let y=startY;y<endY;y++)for(let x=startX;x<endX;x++){
     if(!world.ground[y][x].path)continue;
-    const px=x*t-camera.x,py=y*t-camera.y;
-    ctx.strokeStyle='rgba(61,126,78,.38)';ctx.lineWidth=3*scale;
-    if(!world.ground[y-1]?.[x]?.path){ctx.beginPath();ctx.moveTo(px,py+1);ctx.lineTo(px+t,py+1);ctx.stroke();}
-    if(!world.ground[y+1]?.[x]?.path){ctx.beginPath();ctx.moveTo(px,py+t-1);ctx.lineTo(px+t,py+t-1);ctx.stroke();}
-    if(!world.ground[y]?.[x-1]?.path){ctx.beginPath();ctx.moveTo(px+1,py);ctx.lineTo(px+1,py+t);ctx.stroke();}
-    if(!world.ground[y]?.[x+1]?.path){ctx.beginPath();ctx.moveTo(px+t-1,py);ctx.lineTo(px+t-1,py+t);ctx.stroke();}
+    const px=Math.round(x*t-camera.x),py=Math.round(y*t-camera.y);
+    const adjacent={top:[x,y-1],bottom:[x,y+1],left:[x-1,y],right:[x+1,y]};
+    for(const [side,[nx,ny]] of Object.entries(adjacent)){
+      if(!world.ground[ny]?.[nx]?.path)ctx.drawImage(IMG[edgeNames[side]],px,py,Math.ceil(t)+1,Math.ceil(t)+1);
+    }
   }
   const visible=world.props.filter(p=>{const sx=p.x*scale-camera.x,sy=p.y*scale-camera.y;return sx>-180&&sx<vpW+180&&sy>-180&&sy<vpH+180;});
   const ordered=[...visible,{kind:'player',x:player.x,y:player.y}].sort((a,b)=>a.y-b.y);
@@ -63,7 +63,7 @@ function render(){const vpW=canvas.width,vpH=canvas.height;ctx.fillStyle='#57996
       // Contact shadow stays under the character's pivot, independent of sprite animation.
       ctx.fillStyle='rgba(21,46,40,.25)';ctx.beginPath();ctx.ellipse(x,y+2*scale,27*scale,9*scale,0,0,Math.PI*2);ctx.fill();
       const im=IMG[sheetNames[player.clip]],srcX=player.frame*frameSpec.width,srcY=facingRow[player.facing]*frameSpec.height;
-      const s=1.26*scale;ctx.drawImage(im,srcX,srcY,frameSpec.width,frameSpec.height,x-frameSpec.pivotX*s,y-frameSpec.pivotY*s,frameSpec.width*s,frameSpec.height*s);
+      const s=.69*scale;ctx.drawImage(im,srcX,srcY,frameSpec.width,frameSpec.height,x-frameSpec.pivotX*s,y-frameSpec.pivotY*s,frameSpec.width*s,frameSpec.height*s);
     }else{
       const im=IMG[props[item.kind]];const h=im.height*scale,w=im.width*scale;
       // PNG props use their bottom center as the world coordinate.
@@ -79,7 +79,7 @@ window.addEventListener('blur',()=>keys.clear());
 document.addEventListener('visibilitychange',()=>{if(document.hidden){keys.clear();clock=0;}});
 new ResizeObserver(resizeCanvas).observe(canvas);resizeCanvas();
 
-async function start(){try{const response=await fetch(`${base}assets/manifest.json`,{cache:'no-store'});if(!response.ok)throw Error('Asset manifest HTTP '+response.status);manifest=await response.json();const fileNames=[...Object.values(sheetNames),...Object.values(terrain).flat(),...Object.values(props)];await Promise.all(fileNames.map(async name=>{IMG[name]=await loadImage(name);}));portrait.src=`${base}assets/liora-portrait.png`;
+async function start(){try{const response=await fetch(`${base}assets/manifest.json`,{cache:'no-store'});if(!response.ok)throw Error('Asset manifest HTTP '+response.status);manifest=await response.json();frameSpec={width:manifest.character.frame.width,height:manifest.character.frame.height,pivotX:manifest.character.frame.pivot[0],pivotY:manifest.character.frame.pivot[1]};const fileNames=[...Object.values(sheetNames),...Object.values(terrain).flat(),...Object.values(props),...Object.values(edgeNames)];await Promise.all(fileNames.map(async name=>{IMG[name]=await loadImage(name);}));portrait.src=`${base}assets/liora-portrait.png`;
     ready=true;canvas.focus({preventScroll:true});
   }catch(err){errorBanner.hidden=false;errorBanner.textContent=`Assets could not load: ${err.message}`;motionStatus.textContent='Asset load failed';console.error(err);}}
 start();requestAnimationFrame(frame);

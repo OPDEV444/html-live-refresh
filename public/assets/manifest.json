@@ -1,9 +1,9 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "character": {
     "id": "liora-001",
     "name": "Liora",
-    "description": "Original woodland wayfinder with copper bob, teal cloak, amber head ornament, cream tunic and boots",
+    "description": "Moonlit wayfinder: dark violet hair, golden crescent ornament, white flower, lilac-and-gold travel outfit",
     "directions": [
       "down",
       "left",
@@ -11,26 +11,28 @@
       "up"
     ],
     "frame": {
-      "width": 96,
-      "height": 112,
+      "width": 256,
+      "height": 320,
       "pivot": [
-        48,
-        92
+        128,
+        296
       ]
     },
     "clips": {
       "idle": {
         "file": "liora-idle.png",
-        "frames": 4,
-        "fps": 4
+        "frames": 1,
+        "fps": 1
       },
       "walk": {
         "file": "liora-walk.png",
-        "frames": 8,
-        "fps": 10
+        "frames": 4,
+        "fps": 8
       }
     },
-    "animationType": "independent vector-layer authored frames"
+    "animationType": "authored four-frame sprite sequence extracted from approved character sheet",
+    "status": "asset-replacement-for-review",
+    "source": "source-art/chibi-character-sheet.png"
   },
   "world": {
     "tileSize": 64,
@@ -49,11 +51,18 @@
       "path-2.png",
       "path-3.png"
     ],
+    "edges": [
+      "path-edge-top.png",
+      "path-edge-bottom.png",
+      "path-edge-left.png",
+      "path-edge-right.png"
+    ],
     "props": [
       "oak-tree.png",
       "bush.png",
       "wildflowers.png",
       "stone.png"
-    ]
+    ],
+    "source": "source-art/woodland-tileset-sheet.png"
   }
 }

@@ -1,9 +1,18 @@
 import './style.css';
 
+const basePath = import.meta.env.BASE_URL;
+const sprite = document.querySelector('#character-art');
+const fullResolution = document.querySelector('#original-asset');
+
+// The original transparent PNG is stored as a real tracked asset.
+// The smaller preview keeps the live HTML page lightweight.
+sprite.src = `${basePath}assets/rem-idle-preview.webp`;
+fullResolution.href = `${basePath}assets/rem-idle.png`;
+
 const status = document.querySelector('#status');
 status.textContent = import.meta.env.DEV
-  ? 'Local preview · saved file changes appear automatically.'
-  : 'Hosted preview · checking for published updates every 15 seconds.';
+  ? 'LOCAL · Vite live refresh enabled'
+  : 'PUBLISHED · Auto-check every 15 seconds';
 
 if (import.meta.env.PROD) {
   const currentBuild = __BUILD_ID__;
@@ -25,7 +34,7 @@ if (import.meta.env.PROD) {
         }
       }
     } catch {
-      // Keep the current preview usable during temporary network failures.
+      // Keep the preview usable during temporary network failures.
     } finally {
       checking = false;
     }

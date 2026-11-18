@@ -1,17 +1,48 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Live HTML Preview</title>
-  </head>
-  <body>
-    <main>
-      <p class="eyebrow">LIVE HTML PREVIEW</p>
-      <h1>Waiting for game files.</h1>
-      <p>Your blank project is ready. No game assets have been added.</p>
-      <p id="status" role="status"></p>
-    </main>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111725" />
+  <meta name="description" content="Live game asset preview — Rem character sprite approval." />
+  <title>Rem · Character Sprite Preview</title>
+</head>
+<body>
+  <main class="workspace" aria-labelledby="page-title">
+    <header class="topbar">
+      <div class="brand"><span class="brand__dot" aria-hidden="true"></span><span>LIVE ASSET PREVIEW</span></div>
+      <div class="build-status" id="status" role="status" aria-live="polite">Connecting preview...</div>
+    </header>
+
+    <section class="preview-layout">
+      <div class="sprite-viewer" aria-label="Rem character sprite on a transparent checkerboard background">
+        <div class="sprite-viewer__label"><span class="sprite-viewer__point"></span>SPRITE 001 <span class="sprite-viewer__divider">/</span> IDLE REFERENCE</div>
+        <div class="sprite-viewer__stage">
+          <img id="character-art" width="971" height="1619"
+               alt="Full-body transparent sprite of Rem from Re:Zero, wearing her black and white maid uniform, standing in a three-quarter pose." />
+        </div>
+        <div class="sprite-viewer__footer"><span>TRANSPARENT SOURCE</span><span>971 × 1619 PX</span></div>
+      </div>
+
+      <aside class="details">
+        <p class="eyebrow">CHARACTER APPROVAL · 01 / 01</p>
+        <h1 id="page-title">Rem</h1>
+        <p class="series">Re:Zero − Starting Life in Another World</p>
+        <p class="description">The first character artwork for your upcoming game. Inspect her appearance and proportions before approving the art direction.</p>
+        <div class="specs" aria-label="Asset details">
+          <div><span>Art style</span><strong>2.5D-style anime</strong></div>
+          <div><span>Orientation</span><strong>Three-quarter front</strong></div>
+          <div><span>Source image</span><strong>PNG · Transparent</strong></div>
+          <div><span>Animation</span><strong>Static frame — not rigged</strong></div>
+          <div><span>Characters</span><strong>1 of 1</strong></div>
+        </div>
+        <a class="asset-link" id="original-asset" download="rem-idle.png" href="#">View full-resolution PNG <span aria-hidden="true">↗</span></a>
+        <p class="footnote">No other characters, rigging or gameplay assets have been added. The local Vite page updates on file saves; this hosted page refreshes after GitHub publishes a new revision.</p>
+      </aside>
+    </section>
+
+    <footer class="page-footer"><span>ASSET REVIEW • MILESTONE 001</span><span>GITHUB-CONNECTED PREVIEW</span></footer>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
 </html>

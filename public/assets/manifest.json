@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "id": "rem-idle-001",
+      "character": "Rem",
+      "series": "Re:Zero",
+      "role": "approval-reference",
+      "format": "png",
+      "width": 971,
+      "height": 1619,
+      "transparent": true,
+      "source": "assets/rem-idle.png",
+      "preview": "assets/rem-idle-preview.webp",
+      "animationClips": [],
+      "rigged": false,
+      "status": "pending-approval"
+    }
+  ]
+}

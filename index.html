@@ -3,10 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
-    <title>Untitled Game</title>
+    <meta name="theme-color" content="#7faf5b" />
+    <meta name="description" content="Verdant Vale: a top-down, pixel-art ground tilemap." />
+    <title>Verdant Vale — The Meadows</title>
   </head>
   <body>
+    <main class="game-shell" aria-label="Verdant Vale ground tilemap">
+      <canvas id="ground-map" aria-label="Top-down pixel-art meadow with grass, flowers, and winding dirt paths. Drag or use the arrow keys to explore."></canvas>
+      <header class="map-title">
+        <span class="eyebrow">Verdant Vale / Terrain 01</span>
+        <h1>The Meadows</h1>
+      </header>
+      <div class="map-controls">
+        <p>DRAG TO EXPLORE<br />WASD / ARROWS TO PAN</p>
+        <button id="reset-view" type="button" aria-label="Center map">Recenter</button>
+      </div>
+    </main>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

@@ -1,6 +1,126 @@
+:root {
+  color-scheme: light;
+  font-family: 'Trebuchet MS', Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
 html,
 body {
   margin: 0;
+  width: 100%;
   min-height: 100%;
-  background: #ffffff;
+  overflow: hidden;
+  background: #7faf5b;
+}
+
+.game-shell {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #7faf5b;
+}
+
+#ground-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+}
+
+#ground-map.dragging { cursor: grabbing; }
+
+.map-title,
+.map-controls {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  background: #f8f3dc;
+  border: 3px solid #496d43;
+  box-shadow: 0 4px 0 #385e3b, 0 8px 18px #1f40293d;
+  color: #30553a;
+}
+
+.map-title {
+  top: clamp(12px, 3vw, 28px);
+  left: clamp(12px, 3vw, 28px);
+  padding: 12px 17px 11px;
+  max-width: calc(100vw - 24px);
+}
+
+.eyebrow {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #71945a;
+}
+
+.map-title h1 {
+  margin: 6px 0 0;
+  font-size: clamp(20px, 2.6vw, 29px);
+  line-height: 1.1;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.map-controls {
+  bottom: clamp(12px, 3vw, 28px);
+  right: clamp(12px, 3vw, 28px);
+  padding: 11px 13px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.map-controls p {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+}
+
+.map-controls button {
+  pointer-events: auto;
+  border: 2px solid #496d43;
+  border-radius: 0;
+  background: #e6ead0;
+  box-shadow: 2px 2px 0 #496d43;
+  padding: 8px 12px;
+  color: #30553a;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.map-controls button:hover,
+.map-controls button:focus-visible {
+  background: #d2e9ad;
+  outline-offset: 3px;
+}
+
+.map-controls button:active {
+  box-shadow: 0 0 0 #496d43;
+  transform: translate(2px, 2px);
+}
+
+@media (max-width: 640px) {
+  .map-title { padding: 9px 12px; }
+  .map-title h1 { font-size: 18px; }
+  .map-controls { padding: 8px 9px; gap: 9px; }
+  .map-controls p { font-size: 9px; }
+  .map-controls button { font-size: 10px; padding: 7px 9px; }
 }

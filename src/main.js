@@ -1,5 +1,6 @@
 import './style.css';
 import { TILE_SIZE, createGroundMap, paintGround } from './terrain.js';
+import { loadWorldAssets, paintEnvironment } from './environment.js';
 
 const canvas = document.querySelector('#ground-map');
 const resetButton = document.querySelector('#reset-view');
@@ -8,7 +9,14 @@ const map = createGroundMap();
 const worldCanvas = document.createElement('canvas');
 worldCanvas.width = map.width * TILE_SIZE;
 worldCanvas.height = map.height * TILE_SIZE;
-paintGround(worldCanvas.getContext('2d', { alpha: false }), map);
+const worldCtx = worldCanvas.getContext('2d', { alpha: false });
+paintGround(worldCtx, map);
+// Asset loading is asynchronous. The original generated map remains visible until ready.
+loadWorldAssets().then((assets) => {
+  paintGround(worldCtx, map);
+  paintEnvironment(worldCtx, map, assets);
+  draw();
+}).catch((error) => console.warn('Environment assets could not load:', error));
 
 let cameraX = 0;
 let cameraY = 0;

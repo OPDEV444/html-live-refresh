@@ -1,38 +1,39 @@
-# Verdant Vale — The Meadows
+# Verdant Vale — Plantation Environment
 
-A pixel-art, top-down ground tilemap built with Vite. This is the first terrain-only scene: no character, buildings, trees, NPCs, or gameplay systems yet.
+A top-down Vite browser game with a deterministic 84 × 64 ground tilemap and a first-pass, sci-fi anime-inspired environment. This branch adds the environment independently from the character/HUD work.
 
-## Current terrain
+## Environment asset pack
 
-- 84 × 64 tiles, drawn at 16 × 16 pixels each.
-- Several grass shades, long-grass patches, tiny ground flowers, and intersecting dirt trails.
-- Deterministic tile generation and hand-drawn pixel textures rendered on Canvas 2D.
-- No image downloads or runtime asset dependencies.
+Each asset lives in its **own image file** at `public/assets/world/`. There is no atlas or combined sprite sheet.
 
-## Explore the map
+- Eight individual 16×16 terrain textures (grass shades, tall grass, path, edge, flowers, paving and water)
+- Four sci-fi facilities, including an individually generated transparent Plantation building PNG
+- Twelve separate landscape/prop sprites (cherry blossom tree, pine tree, bushes, flowers, rocks, terminal, lamp, bench, fence, banner, sign, planter)
 
-- Drag with your mouse or finger to pan.
-- Use WASD or the arrow keys to pan with a keyboard.
-- Select **Recenter** to return to the middle.
+The scene includes a small lake, paved entrance, a main Plantation building, dormitory, clinic and research lab, plus environmental props. The building assets use the established bright white/pink/cyan aesthetic; the art is an original game interpretation rather than extracted anime artwork.
 
-## Run locally
+### Technical details
 
-Requires Node.js 22.12 or newer.
+- `src/terrain.js` remains the deterministic ground generator and canvas fallback.
+- `src/environment.js` loads separate images using `import.meta.env.BASE_URL`, overlays them on the same canvas and places decorative props.
+- Images are loaded once and painted into the off-screen map canvas; missing assets fall back to the original terrain.
+- This is *visual scenery only*. Buildings and props do not yet have collision data or interaction scripts. Character animation, UI and future areas can be integrated in separate PRs.
 
-    npm ci
-    npm run dev
+## Run
 
-Open http://127.0.0.1:5174/ to see the map.
+Requires Node.js 22.12+.
 
-## Verify
+```sh
+npm ci
+npm run dev
+npm test
+npm run build
+```
 
-    npm test
-    npm run build
+Open http://127.0.0.1:5174/ .
 
-## Deployment and refresh
-
-GitHub Actions tests pull requests and deploys merges to main on GitHub Pages:
+## GitHub Pages
 
 https://opdev444.github.io/html-live-refresh/
 
-The existing version.json check in the production entry point refreshes already-open hosted pages after a new build is deployed. The separately maintained PC launcher is local-only. A pull request alone does not update GitHub Pages or the local clone that syncs main.
+GitHub Actions tests PRs and deploys merges into `main`. The existing `version.json` check remains unchanged for automatic reloads.

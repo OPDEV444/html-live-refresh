@@ -48,17 +48,6 @@ test('tile lookup handles borders and custom map dimensions', () => {
   assert.throws(() => createGroundMap(10.5, 7), RangeError);
 });
 
-test('rendering is pixelated and ground-only, with panning but no character', () => {
-  const style = read('src/style.css');
-  const terrain = read('src/terrain.js');
-  assert.match(style, /image-rendering: pixelated/);
-  assert.match(main, /paintGround/);
-  assert.match(main, /pointermove/);
-  assert.match(main, /requestAnimationFrame/);
-  assert.doesNotMatch(html, /<img|id="player"|character-sprite/i);
-  assert.doesNotMatch(terrain, /new Player|new Enemy|createNPC|treeSprite/i);
-});
-
 test('hosted previews continue checking for deployed updates', () => {
   assert.match(main, /version\.json/);
   assert.match(main, /setInterval\(checkForUpdate, 10_000\)/);

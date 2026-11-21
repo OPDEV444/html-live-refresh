@@ -3,21 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#7faf5b" />
-    <meta name="description" content="Verdant Vale: a top-down, pixel-art ground tilemap." />
-    <title>Verdant Vale — The Meadows</title>
+    <meta name="theme-color" content="#151624" />
+    <title>Verdant Vale — The Garden</title>
   </head>
   <body>
-    <main class="game-shell" aria-label="Verdant Vale ground tilemap">
-      <canvas id="ground-map" aria-label="Top-down pixel-art meadow with grass, flowers, and winding dirt paths. Drag or use the arrow keys to explore."></canvas>
-      <header class="map-title">
-        <span class="eyebrow">Verdant Vale / Terrain 01</span>
-        <h1>The Meadows</h1>
+    <main class="shell">
+      <header class="topbar">
+        <div class="wordmark"><span data-insignia></span><div><h1>Verdant <em>Vale</em></h1><small lang="ja">ヴァーダント・ヴェイル</small></div></div>
+        <div class="header-end"><span class="status"><i></i><span id="state">Exploration</span></span><button id="menu-toggle"><span data-icon="menu"></span> Menu <kbd>Esc</kbd></button></div>
       </header>
-      <div class="map-controls">
-        <p>DRAG TO EXPLORE<br />WASD / ARROWS TO PAN</p>
-        <button id="reset-view" type="button" aria-label="Center map">Recenter</button>
+      <div class="layout">
+        <section class="play-column" aria-label="Exploration">
+          <div class="section-line"><span><b>//</b> Field view</span><span class="micro" id="coords"></span></div>
+          <div class="field-frame"><canvas id="ground-map" aria-label="The Garden, a pixel-art meadow with winding paths"></canvas>
+            <div class="location"><small><span data-icon="pin"></span> AREA <b>01</b></small><strong id="location-name"></strong></div>
+            <div id="arrival" hidden></div>
+            <div class="field-tag"><i></i> <span id="field-status">LIVE FEED</span></div>
+          </div>
+          <section class="comms" aria-label="Field dialogue">
+            <div class="comms-portrait"><img id="comms-face" alt=""/></div>
+            <div class="comms-body"><div class="voice-title"><span id="speaker">Zero Two</span><span data-icon="beacon"></span></div><p id="speech" aria-live="polite"></p></div>
+            <button id="talk" aria-label="Interact or advance dialogue"><kbd>Z</kbd> <span id="talk-label">Interact</span> ▸</button>
+          </section>
+        </section>
+        <aside class="side" aria-label="Pilot and navigation">
+          <div class="section-line"><span><b>//</b> Pilot link</span><span class="micro">FRANXX / 002</span></div>
+          <div class="pilot-card"><div class="pilot-copy"><span class="pilot-label">ACTIVE PILOT</span><h2>Zero Two</h2><span class="jp" lang="ja">ゼロツー</span></div><span class="big-id" aria-hidden="true">002</span><img class="pilot-art" alt="Zero Two, the active pilot" /></div>
+          <section id="console" class="console" aria-label="Location archive and pause menu">
+            <div class="console-header"><span class="accent">//</span><h2 id="console-title">Location archive</h2><span data-icon="signal"></span></div>
+            <div id="archive"></div><div id="menu-panel" hidden></div>
+            <div id="detail" hidden></div>
+            <div id="map-view" hidden><canvas id="overview" aria-label="Overview of The Garden with your position marked in pink"></canvas><p><i></i> Current position</p></div>
+          </section>
+        </aside>
       </div>
+      <footer><span class="controls-label">Controls <small>/ PC</small></span><div class="controls"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</span><span><kbd>Shift</kbd> Run</span><span><kbd>Z</kbd> Interact / Confirm</span><span><kbd>X</kbd> Back</span><span><kbd>Esc</kbd> Menu</span></div></footer>
     </main>
     <script type="module" src="/src/main.js"></script>
   </body>

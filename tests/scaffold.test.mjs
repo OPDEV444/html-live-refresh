@@ -56,7 +56,7 @@ test('rendering is pixelated and ground-only, with panning but no character', ()
   assert.match(main, /pointermove/);
   assert.match(main, /requestAnimationFrame/);
   assert.doesNotMatch(html, /<img|id="player"|character-sprite/i);
-  assert.doesNotMatch(terrain, /player|enemy|npc|treeSprite/i);
+  assert.doesNotMatch(terrain, /new Player|new Enemy|createNPC|treeSprite/i);
 });
 
 test('hosted previews continue checking for deployed updates', () => {

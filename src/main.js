@@ -1,127 +1,119 @@
 import './style.css';
-import { TILE_SIZE, createGroundMap, paintGround } from './terrain.js';
+import { garden, canEnter, adjacentRelay } from './world.js';
+import { GROUND, getTile } from './terrain.js';
+import { createPilot, beginStep, advance } from './pilot.js';
+import { createField } from './field.js';
+import { createHud } from './hud.js';
+import { readSave, writeSave } from './session.js';
 
-const canvas = document.querySelector('#ground-map');
-const resetButton = document.querySelector('#reset-view');
-const ctx = canvas.getContext('2d', { alpha: false });
-const map = createGroundMap();
-const worldCanvas = document.createElement('canvas');
-worldCanvas.width = map.width * TILE_SIZE;
-worldCanvas.height = map.height * TILE_SIZE;
-paintGround(worldCanvas.getContext('2d', { alpha: false }), map);
+const map = garden.createMap();
+const state = { hasPass: false, textSpeed: 'Standard' };
+let pilot = createPilot(garden.spawn);
+const canvas = document.getElementById('ground-map');
+const coordinates = document.getElementById('coords');
+const keys = new Map();
+const shifts = new Set();
+const bindings = { w:'up', a:'left', s:'down', d:'right', arrowup:'up', arrowleft:'left', arrowdown:'down', arrowright:'right' };
+let buffered = null;
+let field;
 
-let cameraX = 0;
-let cameraY = 0;
-let scale = 3;
-let initialized = false;
-let dragging = false;
-let pointerX = 0;
-let pointerY = 0;
-let frameId = 0;
-let lastFrame = 0;
-
-const heldKeys = new Set();
-const movementKeys = new Set([
-  'arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'w', 'a', 's', 'd',
-]);
-
-function clampCamera() {
-  cameraX = Math.max(0, Math.min(cameraX, worldCanvas.width - canvas.width));
-  cameraY = Math.max(0, Math.min(cameraY, worldCanvas.height - canvas.height));
+function release() {
+  keys.clear();
+  shifts.clear();
+  buffered = null;
 }
-
-function draw() {
-  ctx.imageSmoothingEnabled = false;
-  ctx.fillStyle = '#7faf5b';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(worldCanvas, -Math.round(cameraX), -Math.round(cameraY));
-}
-
-function centerMap() {
-  cameraX = (worldCanvas.width - canvas.width) * 0.5;
-  cameraY = (worldCanvas.height - canvas.height) * 0.5;
-  clampCamera();
-  draw();
-}
-
-function resize() {
-  const oldCenterX = cameraX + canvas.width / 2;
-  const oldCenterY = cameraY + canvas.height / 2;
-  const bounds = canvas.getBoundingClientRect();
-  scale = window.innerWidth <= 640 ? 2 : 3;
-  canvas.width = Math.max(1, Math.ceil(bounds.width / scale));
-  canvas.height = Math.max(1, Math.ceil(bounds.height / scale));
-  if (!initialized) {
-    initialized = true;
-    centerMap();
-  } else {
-    cameraX = oldCenterX - canvas.width / 2;
-    cameraY = oldCenterY - canvas.height / 2;
-    clampCamera();
-    draw();
+function interact() {
+  if (pilot.step) return;
+  if (adjacentRelay(garden, pilot)) {
+    const text = state.hasPass
+      ? ['That relay already logged our pass. The next stop on the route is Mistilteinn.']
+      : ['A Garden relay. Let’s see what it picked up.', 'A field pass, just for us. I’ll keep it in the bag.'];
+    hud.talk(text.map(line => ({ text: line })), () => { state.hasPass = true; });
+    return;
   }
+  const ground = getTile(map, pilot.x, pilot.y);
+  const line = ground === GROUND.PATH || ground === GROUND.PATH_EDGE
+    ? 'Someone walked this trail before us. I wonder where they went.'
+    : ground === GROUND.FLOWERS ? 'Look at those little flowers. They grew all the way out here.' : 'It’s quiet here. You can hear the grass move.';
+  hud.talk([{ text: line }]);
 }
-
-canvas.addEventListener('pointerdown', (event) => {
-  if (event.button !== 0) return;
-  dragging = true;
-  pointerX = event.clientX;
-  pointerY = event.clientY;
-  canvas.classList.add('dragging');
-  canvas.setPointerCapture(event.pointerId);
+function update() {
+  if (!field) return;
+  field.draw(pilot);
+  coordinates.textContent = 'X ' + String(pilot.x).padStart(2,'0') + '  /  Y ' + String(pilot.y).padStart(2,'0');
+}
+const hud = createHud(state, {
+  release, interact,
+  save: () => writeSave(localStorage, pilot, state),
+  load() {
+    const save = readSave(localStorage, map);
+    if (!save) return false;
+    pilot = createPilot(save);
+    state.hasPass = save.hasPass;
+    state.textSpeed = save.textSpeed;
+    update();
+    return true;
+  },
+  reset() {
+    pilot = createPilot(garden.spawn);
+    state.hasPass = false; state.textSpeed = 'Standard'; update();
+  },
 });
 
-canvas.addEventListener('pointermove', (event) => {
-  if (!dragging) return;
-  cameraX -= (event.clientX - pointerX) / scale;
-  cameraY -= (event.clientY - pointerY) / scale;
-  pointerX = event.clientX;
-  pointerY = event.clientY;
-  clampCamera();
-  draw();
-});
-
-function stopDragging() {
-  dragging = false;
-  canvas.classList.remove('dragging');
+function step(dir) {
+  return beginStep(pilot, dir, shifts.size > 0, (x, y) => canEnter(garden, map, x, y));
 }
-canvas.addEventListener('pointerup', stopDragging);
-canvas.addEventListener('pointercancel', stopDragging);
-canvas.addEventListener('lostpointercapture', stopDragging);
-
-function step(time) {
-  const elapsed = Math.min(0.05, (time - (lastFrame || time)) / 1000);
-  lastFrame = time;
-  const horizontal = Number(heldKeys.has('d') || heldKeys.has('arrowright'))
-    - Number(heldKeys.has('a') || heldKeys.has('arrowleft'));
-  const vertical = Number(heldKeys.has('s') || heldKeys.has('arrowdown'))
-    - Number(heldKeys.has('w') || heldKeys.has('arrowup'));
-
-  if (horizontal || vertical) {
-    const factor = horizontal && vertical ? Math.SQRT1_2 : 1;
-    cameraX += horizontal * 170 * elapsed * factor;
-    cameraY += vertical * 170 * elapsed * factor;
-    clampCamera();
-    draw();
+window.addEventListener('keydown', event => {
+  if (event.metaKey || event.altKey || event.ctrlKey || !field) return;
+  const k = event.key.toLowerCase();
+  if (event.repeat) {
+    if (Object.hasOwn(bindings, k) || ['z','x','escape','enter',' '].includes(k)) event.preventDefault();
+    return;
   }
-  frameId = heldKeys.size ? requestAnimationFrame(step) : 0;
-  if (!frameId) lastFrame = 0;
-}
-
-window.addEventListener('keydown', (event) => {
-  const key = event.key.toLowerCase();
-  if (!movementKeys.has(key) || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (hud.key(k, event.shiftKey)) { event.preventDefault(); return; }
+  if (k === 'shift') { shifts.add(event.code); return; }
+  if (!Object.hasOwn(bindings, k)) return;
   event.preventDefault();
-  heldKeys.add(key);
-  if (!frameId) frameId = requestAnimationFrame(step);
+  keys.set(k, bindings[k]);
+  if (pilot.step) buffered = bindings[k];
+  else step(bindings[k]);
 });
-window.addEventListener('keyup', (event) => {
-  heldKeys.delete(event.key.toLowerCase());
+window.addEventListener('keyup', event => {
+  keys.delete(event.key.toLowerCase());
+  if (event.key === 'Shift') shifts.delete(event.code);
 });
-window.addEventListener('blur', () => heldKeys.clear());
-window.addEventListener('resize', resize);
-resetButton.addEventListener('click', centerMap);
-resize();
+window.addEventListener('blur', release);
+document.addEventListener('visibilitychange', () => { if (document.hidden) release(); });
+
+async function start() {
+  field = await createField(canvas, document.getElementById('overview'), garden, map);
+  function resize() { field.resize(); update(); }
+  new ResizeObserver(resize).observe(canvas);
+  resize();
+  let previous;
+  function tick(time) {
+    const elapsed = Math.min(50, time - (previous ?? time));
+    previous = time;
+    if (hud.mode === 'field') {
+      const moved = Boolean(pilot.step);
+      advance(pilot, elapsed);
+      if (!pilot.step) {
+        const dir = buffered || [...keys.values()].at(-1);
+        buffered = null;
+        if (dir) step(dir);
+      }
+      if (moved || pilot.step || keys.size) update();
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+start().catch(() => {
+  document.getElementById('speech').textContent = 'Character artwork could not be loaded. Reload the page to retry.';
+  document.getElementById('state').textContent = 'Offline';
+  document.getElementById('talk').disabled = true;
+  document.getElementById('menu-toggle').disabled = true;
+});
 
 // Keep the existing hosted-preview refresh mechanism intact.
 if (import.meta.env.PROD) {
